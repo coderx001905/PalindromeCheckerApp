@@ -5,19 +5,22 @@ public class PalindromeCheckerApp {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter a word: ");
-        String original = sc.nextLine();
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
 
-        String reversed = "";
+        int original = num;
+        int reverse = 0;
 
-        for(int i = original.length() - 1; i >= 0; i--) {
-            reversed = reversed + original.charAt(i);
+        while(num != 0) {
+            int digit = num % 10;
+            reverse = reverse * 10 + digit;
+            num = num / 10;
         }
 
-        if(original.equals(reversed)) {
-            System.out.println("It is a Palindrome");
+        if(original == reverse) {
+            System.out.println("It is a Palindrome Number");
         } else {
-            System.out.println("It is NOT a Palindrome");
+            System.out.println("It is NOT a Palindrome Number");
         }
 
         sc.close();
