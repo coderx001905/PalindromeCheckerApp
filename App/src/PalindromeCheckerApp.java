@@ -1,28 +1,17 @@
-import java.util.Scanner;
-
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        String str = "madam";   // hardcoded string
+        String reversed = "";
 
-        System.out.print("Enter a number: ");
-        int num = sc.nextInt();
-
-        int original = num;
-        int reverse = 0;
-
-        while(num != 0) {
-            int digit = num % 10;
-            reverse = reverse * 10 + digit;
-            num = num / 10;
+        for (int i = str.length() - 1; i >= 0; i--) {
+            reversed = reversed + str.charAt(i);
         }
 
-        if(original == reverse) {
-            System.out.println("It is a Palindrome Number");
+        if (str.equals(reversed)) {
+            System.out.println("Palindrome");
         } else {
-            System.out.println("It is NOT a Palindrome Number");
+            System.out.println("Not a Palindrome");
         }
-
-        sc.close();
     }
 }
