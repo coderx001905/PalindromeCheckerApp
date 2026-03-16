@@ -1,27 +1,31 @@
-public class PalindromeCheckerApp {
+class PalindromeCheckerApp {
 
-    public static void main(String[] args) {
+    // Method to check palindrome
+    public boolean checkPalindrome(String str) {
 
-        String str = "A man a plan a canal Panama";
-
-        // Normalize string (remove spaces and convert to lowercase)
-        str = str.replaceAll("\\s+", "").toLowerCase();
-
-        boolean isPalindrome = true;
         int start = 0;
         int end = str.length() - 1;
 
-        // Apply palindrome logic
         while (start < end) {
             if (str.charAt(start) != str.charAt(end)) {
-                isPalindrome = false;
-                break;
+                return false;
             }
             start++;
             end--;
         }
 
-        if (isPalindrome) {
+        return true;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        String str = "madam";
+
+        PalindromeChecker checker = new PalindromeChecker();
+
+        if (checker.checkPalindrome(str)) {
             System.out.println("Palindrome");
         } else {
             System.out.println("Not a Palindrome");
