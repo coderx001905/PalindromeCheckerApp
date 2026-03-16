@@ -1,31 +1,52 @@
-class PalindromeCheckerApp {
+import java.util.*;
 
-    // Method to check palindrome
+interface PalindromeStrategy {
+    boolean checkPalindrome(String str);
+}
+
+class StackStrategy implements PalindromeStrategy {
     public boolean checkPalindrome(String str) {
+        Stack<Character> stack = new Stack<>();
 
-        int start = 0;
-        int end = str.length() - 1;
-
-        while (start < end) {
-            if (str.charAt(start) != str.charAt(end)) {
-                return false;
-            }
-            start++;
-            end--;
+        for (char c : str.toCharArray()) {
+            stack.push(c);
         }
 
+        for (char c : str.toCharArray()) {
+            if (c != stack.pop()) {
+                return false;
+            }
+        }
         return true;
     }
 }
 
-public class Main {
+class DequeStrategy implements PalindromeStrategy {
+    public boolean checkPalindrome(String str) {
+        Deque<Character> deque = new ArrayDeque<>();
+
+        for (char c : str.toCharArray()) {
+            deque.addLast(c);
+        }
+
+        while (deque.size() > 1) {
+            if (deque.removeFirst() != deque.removeLast()) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
         String str = "madam";
 
-        PalindromeChecker checker = new PalindromeChecker();
+        PalindromeStrategy strategy = new StackStrategy();
+        // PalindromeStrategy strategy = new DequeStrategy();
 
-        if (checker.checkPalindrome(str)) {
+        if (strategy.checkPalindrome(str)) {
             System.out.println("Palindrome");
         } else {
             System.out.println("Not a Palindrome");
