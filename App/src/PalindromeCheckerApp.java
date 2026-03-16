@@ -1,11 +1,30 @@
 import java.util.*;
 
-interface PalindromeStrategy {
-    boolean checkPalindrome(String str);
-}
+public class PalindromeCheckerApp {
 
-class StackStrategy implements PalindromeStrategy {
-    public boolean checkPalindrome(String str) {
+    // Method 1: Reverse String
+    static boolean reverseMethod(String str) {
+        String reversed = new StringBuilder(str).reverse().toString();
+        return str.equals(reversed);
+    }
+
+    // Method 2: Two Pointer
+    static boolean twoPointerMethod(String str) {
+        int start = 0;
+        int end = str.length() - 1;
+
+        while (start < end) {
+            if (str.charAt(start) != str.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
+    }
+
+    // Method 3: Stack
+    static boolean stackMethod(String str) {
         Stack<Character> stack = new Stack<>();
 
         for (char c : str.toCharArray()) {
@@ -19,37 +38,29 @@ class StackStrategy implements PalindromeStrategy {
         }
         return true;
     }
-}
 
-class DequeStrategy implements PalindromeStrategy {
-    public boolean checkPalindrome(String str) {
-        Deque<Character> deque = new ArrayDeque<>();
-
-        for (char c : str.toCharArray()) {
-            deque.addLast(c);
-        }
-
-        while (deque.size() > 1) {
-            if (deque.removeFirst() != deque.removeLast()) {
-                return false;
-            }
-        }
-        return true;
-    }
-}
-
-public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
-        String str = "madam";
+        String str = "madamimadam";
 
-        PalindromeStrategy strategy = new StackStrategy();
-        // PalindromeStrategy strategy = new DequeStrategy();
+        long start, end;
 
-        if (strategy.checkPalindrome(str)) {
-            System.out.println("Palindrome");
-        } else {
-            System.out.println("Not a Palindrome");
-        }
+        // Reverse method timing
+        start = System.nanoTime();
+        reverseMethod(str);
+        end = System.nanoTime();
+        System.out.println("Reverse Method Time: " + (end - start) + " ns");
+
+        // Two pointer timing
+        start = System.nanoTime();
+        twoPointerMethod(str);
+        end = System.nanoTime();
+        System.out.println("Two Pointer Method Time: " + (end - start) + " ns");
+
+        // Stack method timing
+        start = System.nanoTime();
+        stackMethod(str);
+        end = System.nanoTime();
+        System.out.println("Stack Method Time: " + (end - start) + " ns");
     }
 }
